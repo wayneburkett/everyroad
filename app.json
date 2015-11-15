@@ -1,0 +1,8 @@
+{
+  "name": "EveryRoad",
+  "description": "RER",
+  "repository": "https://github.com/lwburk/everyroad",
+  "logo": "",
+  "keywords": ["node", "express", "static"],
+  "image": ""
+}

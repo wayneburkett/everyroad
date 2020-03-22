@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    const query = window.location.search.substring(1)
+    const token = query.split('access_token=')[1]
+
+    fetch('//www.strava.com/api/v3/athlete', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+    .then(res => res.json())
+    .then(res => {
+      // => http://developers.strava.com/docs/reference/#api-Athletes
+      const nameNode = document.createTextNode(`Welcome, ${res.firstname}`)
+      document.body.appendChild(nameNode)
+    })
+</script>
+
+</html>

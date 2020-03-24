@@ -16,7 +16,7 @@
     const query = window.location.search.substring(1)
     const token = query.split('access_token=')[1]
 
-    fetch('//www.strava.com/api/v3/athlete', {
+    fetch('/user', {
       headers: {
         Authorization: 'Bearer ' + token
       }

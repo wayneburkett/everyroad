@@ -2,61 +2,76 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const axios = require('axios')
-
-const app = express()
-app.use(morgan('combined'))
-app.use(verify, express.static(__dirname + '/public'))
-
-function verify(req, res, next) {
-  console.log('Middleware processing...' + req.url)
-  next()
-}
+const session = require('express-session')
+const passport = require('passport')
+const stravaStrategy = require('passport-strava-oauth2')
+const layouts = require('express-ejs-layouts')
 
 const { ISSUER, CLIENT_ID, CLIENT_SECRET, SCOPE } = process.env
 
-app.get('/oauth/redirect', (req, res) => {
-  const requestToken = req.query.code
-  let request = `${ISSUER}/token?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${requestToken}&grant_type=authorization_code`
-  axios({
-    method: 'post',
-    url: request,
-    headers: {
-         accept: 'application/json'
-    }
-  }).then((response) => {
-    const accessToken = response.data.access_token
-    res.redirect(`/welcome.html?access_token=${accessToken}`)
-  }).catch((error) => {
-    res.redirect('/')
-  })
-})
-
-app.get('/user', (req, res) => {
-  const token = req.header('Authorization')
-  const request = 'https://www.strava.com/api/v3/athlete'
-  axios({
-    url: request,
-    headers: {
-      Authorization: token,
-      accept: 'application/json'
-    }
-  }).then(response => {
-    res.send(response.data)
-  }).catch(error => {
-    res.send(error)
-  })
-})
-
-app.get('/', (req, res) => {
-  console.log('Responding to root route')
-  res.send('Hello, world!')
-})
-
-app.get('/test', (req, res) => {
-  const test = { msg: 'Success' }
-  res.json(test)
-})
+const app = express()
+app.set('views', __dirname + '/views')
+app.set('view engine', 'ejs')
+app.use(morgan('combined'))
+app.use(layouts)
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(express.static(__dirname + '/public'))
 
 app.listen(3003, () => {
   console.log('Server is listening on port 3003...')
 })
+
+passport.serializeUser(function (user, done) {
+  done(null, user)
+})
+
+passport.deserializeUser(function (obj, done) {
+  done(null, obj)
+})
+
+passport.use(new stravaStrategy.Strategy({
+    clientID: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    callbackURL: 'http://localhost:3003/auth/strava/callback'
+  },
+  function (accessToken, refreshToken, profile, done) {
+    // TODO: this is where we'll associate the Strava user with a local user
+    done(null, profile)
+  }
+))
+
+// forward to Strava for authentication
+app.get('/auth/strava',
+  passport.authenticate('strava', { scope: [SCOPE] }),
+  function (req, res) {
+    // noop
+  })
+
+app.get('/auth/strava/callback',
+  passport.authenticate('strava', { failureRedirect: '/login' }),
+  function (req, res) {
+    res.redirect('/')
+  })
+
+app.get('/', function (req, res) {
+  res.render('index', { user: req.user })
+})
+
+app.get('/logout', function (req, res) {
+  req.logout()
+  res.redirect('/')
+})
+
+// use as route middleware for any route that requires authentication
+function authenticate (req, res, next) {
+  if (req.isAuthenticated()) { return next() }
+  // TODO: I guess this should probably return an error...
+  res.redirect('/login')
+}

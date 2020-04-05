@@ -65,6 +65,14 @@ app.get('/', function (req, res) {
   res.render('index', { user: req.user })
 })
 
+app.get('/map/:id', authenticate, function (req, res) {
+  res.render('stream', {
+    layout: 'map-layout.ejs',
+    id: req.params.id,
+    user: req.user
+  })
+})
+
 app.get('/logout', function (req, res) {
   req.logout()
   res.redirect('/')

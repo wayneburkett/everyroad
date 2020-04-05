@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 // this is just getting strava for now, but that might change, so we
-// should try to get it resonably generic
+// should try to get it reasonably generic
 
 const BASE_API_URL = 'https://www.strava.com/api/v3/'
 

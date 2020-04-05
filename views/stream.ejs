@@ -4,7 +4,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoibHdidXJrIiwiYSI6ImNqZ21mbm9pdDFiZXgzM21uaTVrNWpqNW4ifQ.d-nFW-zZRUKXM5E8rdgW3Q';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-v9',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [-90.258403, 38.606557],
     zoom: 5
 });
@@ -16,22 +16,9 @@ map.on('load', function() {
         function(err, data) {
             if (err) throw err;
 
-            var coordinates = data.latlng.data.map(function(item) {
-                return [item[1], item[0]]
-            })
+            let coords = data.features[0].geometry.coordinates
 
-            var geo = {
-                type: 'FeatureCollection',
-                features: [{
-                    type: 'Feature',
-                    geometry: {
-                        type: 'LineString',
-                        coordinates: coordinates
-                    }
-                }]
-            }
-
-            map.addSource('trace', { type: 'geojson', data: geo });
+            map.addSource('trace', { type: 'geojson', data: data });
             map.addLayer({
                 'id': 'trace',
                 'type': 'line',
@@ -42,8 +29,7 @@ map.on('load', function() {
                     'line-width': 3
                 }
             });
-            map.jumpTo({ 'center': coordinates[0], 'zoom': 14 });
-            map.setPitch(30);
+            map.jumpTo({ 'center': coords[0], 'zoom': 14 });
         }
     );
 });

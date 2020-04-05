@@ -17,13 +17,15 @@ module.exports.getActivityStream = (req, res) => {
   get(req, res, 'activities/' + req.params.id + '/streams', {
     keys: 'latlng',
     key_by_type: true
-  })
+  }, streamToGeoJson)
 }
 
-function get (req, res, path, params) {
+function get (req, res, path, params, transform) {
   makeRequest(req, path, params)
     .then(response => {
-      res.send(response.data)
+      res.send((typeof transform === 'function')
+        ? transform(response.data)
+        : response.data)
     }).catch(error => {
       res.send(error)
     })
@@ -38,4 +40,29 @@ function makeRequest (req, path, params) {
       accept: 'application/json'
     }
   })
+}
+
+function streamToGeoJson (response) {
+  return makeGeoJson(swapCoords(response && response.latlng && response.latlng.data))
+}
+
+// GeoJson requires [long, lat]; strava returns [lat, long]
+// swap 'em
+function swapCoords (coords) {
+  return coords ? coords.map(function (item) {
+    return [item[1], item[0]]
+  }) : []
+}
+
+function makeGeoJson (coords) {
+  return {
+    type: 'FeatureCollection',
+    features: [{
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: coords
+      }
+    }]
+  }
 }

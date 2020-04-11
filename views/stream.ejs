@@ -12,26 +12,29 @@ var map = new mapboxgl.Map({
 var streamId = '<%= id %>'
 
 map.on('load', function() {
-    d3.json('http://localhost:3003/activities/' + streamId + '/stream',
-        function(err, data) {
-            if (err) throw err;
-
-            let coords = data.features[0].geometry.coordinates
-
-            map.addSource('trace', { type: 'geojson', data: data });
-            map.addLayer({
-                'id': 'trace',
-                'type': 'line',
-                'source': 'trace',
-                'paint': {
-                    'line-color': 'red',
-                    'line-opacity': 0.75,
-                    'line-width': 3
-                }
-            });
-            map.jumpTo({ 'center': coords[0], 'zoom': 14 });
+    d3.json('http://localhost:3003/activities', function(err, data) {
+        if (err) {
+            throw err
         }
-    );
-});
+        let streams = data
+        streams.forEach(stream => {
+            d3.json('http://localhost:3003/activities/' + stream.id + '/stream', function(err, data) {
+                let coords = data.features[0].geometry.coordinates
+                let id = 'trace_' + stream.id
+                map.addSource(id, { type: 'geojson', data: data });
+                map.addLayer({
+                    'id': id,
+                    'type': 'line',
+                    'source': id,
+                    'paint': {
+                        'line-color': 'red',
+                        'line-opacity': 0.75,
+                        'line-width': 3
+                    }
+                })
+                map.jumpTo({ 'center': coords[0], 'zoom': 14 });
+            })
+        })
+    })
+})
 </script>
-

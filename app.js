@@ -9,7 +9,7 @@ const layouts = require('express-ejs-layouts')
 
 const activitiesController = require('./controllers/activities.js')
 
-const { ISSUER, CLIENT_ID, CLIENT_SECRET, SCOPE } = process.env
+const { CLIENT_ID, CLIENT_SECRET, SCOPE } = process.env
 
 const app = express()
 app.set('views', __dirname + '/views')
@@ -38,15 +38,15 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj)
 })
 
-passport.use(new stravaStrategy.Strategy({
+passport.use(
+  new stravaStrategy.Strategy({
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
     callbackURL: 'http://localhost:3003/auth/strava/callback'
   }, function (accessToken, refreshToken, profile, done) {
     // TODO: this is where we'll associate the Strava user with a local user
     done(null, profile)
-  }
-))
+  }))
 
 // forward to Strava for authentication
 app.get('/auth/strava',

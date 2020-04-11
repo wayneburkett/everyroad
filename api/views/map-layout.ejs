@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Stream</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css" rel="stylesheet" />
+
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    
+
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+ 
+<%- body %>
+
+<div id="info-card" class="absolute pin-t pin-l mt-4 ml-4 rounded shadow-lg bg-white" style="max-width: 400px">
+    <div>
+        <span class="absolute pin-t pin-r px-4 py-3">
+            <i id="info-card-close-button" class="fa fa-times" role="button" aria-hidden="true"></i>
+        </span>
+        <img class="" src="http://via.placeholder.com/400x200?text=No+Picture+Found"/>
+    </div>
+    <div class="px-6 py-4">
+        <div id="airport-name" class="font-bold text-l">Airport Name goes here</div>
+    </div>
+</div>
+
+<main role="main">
+    <section>
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+			<div class="jumbotron">
+				<h1>Navbar example</h1>
+				<p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
+				<a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
+			</div>
+		</div>
+	</section>
+</main>
+</body>
+</html>

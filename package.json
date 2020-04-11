@@ -10,23 +10,12 @@
     "url": "git+https://github.com/wayneburkett/everyroad.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Wayne Burkett <wayne.burkett@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wayneburkett/everyroad/issues"
   },
   "homepage": "https://github.com/wayneburkett/everyroad#readme",
-  "dependencies": {
-    "axios": "^0.19.2",
-    "dotenv": "^8.2.0",
-    "ejs": "^3.0.2",
-    "express": "^4.17.1",
-    "express-ejs-layouts": "^2.5.0",
-    "express-session": "^1.17.0",
-    "morgan": "^1.10.0",
-    "passport": "^0.4.1",
-    "passport-strava-oauth2": "^0.1.3"
-  },
   "devDependencies": {
     "standard": "^14.3.3"
   }

@@ -12,7 +12,10 @@ module.exports.getActivities = (req, res) => {
     // the last page) and then we'll batch them all up into one response
     per_page: 100,
     page: req.query.page
-  })
+  }, (data) => data.map(activity => ({
+      name: activity.name,
+      id: activity.id
+  })))
 }
 
 module.exports.getActivity = (req, res) => {
@@ -52,8 +55,7 @@ function streamToGeoJson (response) {
   return makeGeoJson(swapCoords(response && response.latlng && response.latlng.data))
 }
 
-// GeoJson requires [long, lat]; strava returns [lat, long]
-// swap 'em
+// GeoJson requires [long, lat]; strava returns [lat, long], so swap 'em
 function swapCoords (coords) {
   return coords ? coords.map(function (item) {
     return [item[1], item[0]]

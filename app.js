@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const express = require('express')
 const morgan = require('morgan')
 const session = require('express-session')
@@ -38,14 +39,13 @@ passport.deserializeUser(function (obj, done) {
 })
 
 passport.use(new stravaStrategy.Strategy({
-  clientID: CLIENT_ID,
-  clientSecret: CLIENT_SECRET,
-  callbackURL: 'http://localhost:3003/auth/strava/callback'
-},
-function (accessToken, refreshToken, profile, done) {
-  // TODO: this is where we'll associate the Strava user with a local user
-  done(null, profile)
-}
+    clientID: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    callbackURL: 'http://localhost:3003/auth/strava/callback'
+  }, function (accessToken, refreshToken, profile, done) {
+    // TODO: this is where we'll associate the Strava user with a local user
+    done(null, profile)
+  }
 ))
 
 // forward to Strava for authentication

@@ -2,6 +2,7 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3003",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

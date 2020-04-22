@@ -1,6 +1,6 @@
 <% if (!user) { %>
 	<h2>Welcome! I don't know who you are.</h2>
-    <a href="/auth/strava">Login with Strava</a>
+    <a href="/api/v1/auth/strava">Login with Strava</a>
 <% } else { %>
 	<h2>Hello, <%= user.displayName %>.</h2>
     <p><img src="<%= user.photos[0].value %>"></p>

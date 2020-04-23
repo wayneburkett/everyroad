@@ -1,4 +1,4 @@
-const app = require('../app')
+const app = require('../server')
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')

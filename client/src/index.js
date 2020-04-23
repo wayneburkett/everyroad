@@ -87,7 +87,7 @@ class Application extends React.Component {
   }
 
   fetchActivities () {
-    return fetch('/activities')
+    return fetch('/api/v1/activities')
       .then(result => result.json())
       .then(data => {
         this.setState({ streams: data })

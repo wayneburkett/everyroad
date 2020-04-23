@@ -2,7 +2,6 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3003",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -34,5 +33,6 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "react-scripts": "^3.4.1"
-  }
+  },
+  "proxy": "http://localhost:3003"
 }

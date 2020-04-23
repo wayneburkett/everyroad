@@ -5,6 +5,9 @@ const axios = require('axios')
 
 const BASE_API_URL = 'https://www.strava.com/api/v3/'
 
+// @desc    Get all activities
+// @route   GET /api/v1/activities
+// @access  Public
 module.exports.getActivities = (req, res) => {
   get(req, res, 'athlete/activities', {
     // 100 is the most you can get per page. we'll need to make queries

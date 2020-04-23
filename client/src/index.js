@@ -34,7 +34,7 @@ class Application extends React.Component {
       .then(data => {
         console.log(data)
         const stream = data[0] || {}
-        fetch('activities/' + stream.id + '/stream')
+        fetch('/api/v1/activities/' + stream.id + '/stream')
           .then(result => result.json())
           .then(s => {
             console.log(s)

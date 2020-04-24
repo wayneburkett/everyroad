@@ -8,7 +8,7 @@ const connectDB = require('./config/db')
 dotenv.config()
 connectDB()
 
-const app = module.exports = express();
+const app = module.exports = express()
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
@@ -26,7 +26,7 @@ const auth = require('./routes/auth')
 const activities = require('./routes/activities')
 
 app.use('/api/v1/auth', auth)
-app.use('/api/v1/activities', activities) 
+app.use('/api/v1/activities', activities)
 
 app.get('/', function (req, res) {
   res.render('index', { user: req.user })

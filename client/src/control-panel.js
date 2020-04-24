@@ -1,7 +1,6 @@
 import * as React from 'react'
 
-export default function ControlPanel(props) {
-
+export default function ControlPanel (props) {
   const renderStream = (stream, i) => {
     return (
       <div key={i} className='txt-s'>

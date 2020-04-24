@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
-import MapGL, {Source, Layer} from 'react-map-gl'
-import mapboxgl from 'mapbox-gl';
+import MapGL, { Source, Layer } from 'react-map-gl'
+import mapboxgl from 'mapbox-gl'
 import ControlPanel from './control-panel'
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibHdidXJrIiwiYSI6ImNqZ21mbm9pdDFiZXgzM21uaTVrNWpqNW4ifQ.d-nFW-zZRUKXM5E8rdgW3Q'
@@ -15,14 +15,13 @@ const lineLayer = {
   }
 }
 
-
 class Application extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       viewport: {
         center: [50.8437787, -22.2],
-        zoom: 4,
+        zoom: 4
       },
       streams: [],
       coords: null
@@ -38,8 +37,8 @@ class Application extends React.Component {
           .then(result => result.json())
           .then(s => {
             console.log(s)
-            let coords = s.features[0].geometry.coordinates
-            let id = 'trace_' + s.id
+            const coords = s.features[0].geometry.coordinates
+            const id = 'trace_' + s.id
             console.log(coords)
             this.setState({ coords: s })
           })
@@ -48,15 +47,15 @@ class Application extends React.Component {
 
   getBounds (geojson) {
     if (!geojson) return
-    var coordinates = geojson.features[0].geometry.coordinates;
-    console.log("doing it")
-    return coordinates.reduce(function(bounds, coord) {
-      return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+    var coordinates = geojson.features[0].geometry.coordinates
+    console.log('doing it')
+    return coordinates.reduce(function (bounds, coord) {
+      return bounds.extend(coord)
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]))
   }
 
   render () {
-    const {viewport, streams, coords} = this.state;
+    const { viewport, streams, coords } = this.state
     return (
       <MapGL
         {...this.state.viewport}
@@ -71,7 +70,7 @@ class Application extends React.Component {
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
         {coords && (
-          <Source type="geojson" data={coords}>
+          <Source type='geojson' data={coords}>
             <Layer {...lineLayer} />
           </Source>
         )}

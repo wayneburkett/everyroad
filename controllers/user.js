@@ -5,9 +5,9 @@ module.exports.getUser = async (profile) => {
     const user = await User.findOneAndUpdate(
       { stravaId: profile.id },
       { name: profile.displayName },
-      { 
+      {
         upsert: true,
-        lean: true 
+        lean: true
       }
     )
     return user

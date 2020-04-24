@@ -1,7 +1,7 @@
 import React from 'react'
 import MapGL, { Source, Layer } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
-import ControlPanel from './control-panel'
+import ControlPanel from './components/ControlPanel'
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibHdidXJrIiwiYSI6ImNqZ21mbm9pdDFiZXgzM21uaTVrNWpqNW4ifQ.d-nFW-zZRUKXM5E8rdgW3Q'
 

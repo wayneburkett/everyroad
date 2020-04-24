@@ -2,9 +2,8 @@
 	<h2>Welcome! I don't know who you are.</h2>
     <a href="/api/v1/auth/strava">Login with Strava</a>
 <% } else { %>
-	<h2>Hello, <%= user.displayName %>.</h2>
-    <p><img src="<%= user.photos[0].value %>"></p>
-    <p>ID: <%= user.id %></p>
-    <p>Name: <%= user.displayName %></p>
-    <p>City: <%= user._json.city %></p>
+	<h2>Hello, <%= user.name %>.</h2>
+    <p><img src="<%= user.strava.photos[0].value %>"></p>
+    <p>ID: <%= user.stravaId %></p>
+    <p>City: <%= user.strava._json.city %></p>
 <% } %>

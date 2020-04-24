@@ -3,8 +3,15 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const stravaStrategy = require('passport-strava-oauth2')
+const userController = require('../controllers/user')
 
 const { CLIENT_ID, CLIENT_SECRET, SCOPE } = process.env
+
+const stravaConfig = {
+  clientID: CLIENT_ID,
+  clientSecret: CLIENT_SECRET,
+  callbackURL: 'http://localhost:3003/api/v1/auth/strava/callback'
+}
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -18,13 +25,14 @@ passport.deserializeUser(function (obj, done) {
 })
 
 passport.use(
-  new stravaStrategy.Strategy({
-    clientID: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
-    callbackURL: 'http://localhost:3003/api/v1/auth/strava/callback'
-  }, function (accessToken, refreshToken, profile, done) {
-    // TODO: this is where we'll associate the Strava user with a local user
-    done(null, profile)
+  new stravaStrategy.Strategy(stravaConfig, async (accessToken, refreshToken, profile, done) => {
+    try {
+      const user = await userController.getUser(profile)
+      done(null, { ...user, strava: profile })
+    } catch (err) {
+      console.log(`Error retrieving user: ${err.message}`)
+      done(null, null)
+    }
   }))
 
 // forward to Strava for authentication
@@ -39,6 +47,5 @@ router.get('/strava/callback',
   function (req, res) {
     res.redirect('/')
   })
-
 
 module.exports = router

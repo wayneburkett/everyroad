@@ -3,8 +3,10 @@ const express = require('express')
 const morgan = require('morgan')
 const session = require('express-session')
 const layouts = require('express-ejs-layouts')
+const connectDB = require('./config/db')
 
 dotenv.config()
+connectDB()
 
 const app = module.exports = express();
 

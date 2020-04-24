@@ -1,5 +1,4 @@
 import React from 'react'
-import { render } from 'react-dom'
 import MapGL, { Source, Layer } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import ControlPanel from './control-panel'
@@ -95,4 +94,4 @@ class Application extends React.Component {
   }
 }
 
-render(<Application />, document.getElementById('app'))
+export default Application

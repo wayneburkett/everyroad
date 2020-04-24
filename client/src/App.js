@@ -2,6 +2,7 @@ import React from 'react'
 import MapGL, { Source, Layer } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import ControlPanel from './components/ControlPanel'
+import Login from './components/Login'
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibHdidXJrIiwiYSI6ImNqZ21mbm9pdDFiZXgzM21uaTVrNWpqNW4ifQ.d-nFW-zZRUKXM5E8rdgW3Q'
 
@@ -73,6 +74,7 @@ class Application extends React.Component {
             <Layer {...lineLayer} />
           </Source>
         )}
+        <Login />
         <ControlPanel items={streams} />
       </MapGL>
     )

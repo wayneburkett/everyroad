@@ -49,7 +49,7 @@ router.get('/strava',
 router.get('/strava/callback',
   passport.authenticate('strava', { failureRedirect: '/login' }),
   function (req, res) {
-    res.redirect('/')
+    res.redirect('http://localhost:3000')
   })
 
 module.exports = router

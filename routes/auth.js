@@ -28,7 +28,11 @@ passport.use(
   new stravaStrategy.Strategy(stravaConfig, async (accessToken, refreshToken, profile, done) => {
     try {
       const user = await userController.getUser(profile)
-      done(null, { ...user, strava: profile })
+      done(null, {
+        ...user,
+        token: profile.token,
+        strava: profile
+      })
     } catch (err) {
       console.log(`Error retrieving user: ${err.message}`)
       done(null, null)

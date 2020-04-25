@@ -8,11 +8,13 @@ const connectDB = require('./config/db')
 dotenv.config()
 connectDB()
 
+const PORT = process.env.PORT || 3003
+const NODE_ENV = process.env.NODE_ENV || 'development'
+
 const app = module.exports = express()
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
-app.use(morgan('combined'))
 app.use(layouts)
 app.use(session({
   secret: 'keyboard cat',
@@ -21,6 +23,10 @@ app.use(session({
   cookie: { secure: false }
 }))
 app.use(express.static(__dirname + '/public'))
+
+if (NODE_ENV === 'development') {
+  app.use(morgan('combined'))
+}
 
 const auth = require('./routes/auth')
 const activities = require('./routes/activities')
@@ -36,9 +42,6 @@ app.get('/logout', function (req, res) {
   req.logout()
   res.redirect('/')
 })
-
-const PORT = process.env.PORT || 3003
-const NODE_ENV = process.env.NODE_ENV || 'development'
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT} in ${NODE_ENV} mode...`)

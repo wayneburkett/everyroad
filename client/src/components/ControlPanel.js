@@ -1,6 +1,14 @@
-import * as React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { GlobalContext } from '../context/GlobalState'
 
-export default function ControlPanel (props) {
+export const ControlPanel = () => {
+  const { activities, getActivities } = useContext(GlobalContext)
+
+  useEffect(() => {
+    getActivities()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const renderStream = (stream, i) => {
     return (
       <div key={i} className='txt-s'>
@@ -9,8 +17,6 @@ export default function ControlPanel (props) {
     )
   }
 
-  const streams = props.items || []
-
   return (
     <div>
       <div className='bg-white absolute top lef ml12 mt12 py12 px12 shadow-darken10 round z1 wmax180'>
@@ -18,7 +24,7 @@ export default function ControlPanel (props) {
           <h2 className='txt-bold txt-s block'>Rides</h2>
           <p className='txt-s color-gray'>Your rides</p>
         </div>
-        {streams.map(renderStream)}
+        {activities && activities.map(renderStream)}
       </div>
     </div>
   )

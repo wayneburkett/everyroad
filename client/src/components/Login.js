@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { GlobalContext } from '../context/GlobalState'
+import { StravaButton } from './StravaButton'
 
 export const Login = () => {
   const { user, getUser } = useContext(GlobalContext)
@@ -19,8 +20,7 @@ export const Login = () => {
                 {user && (
                   <p>Hello, {user.name}</p>
                 )}
-                <h2>Welcome! I don't know who you are.</h2>
-                <a href="http://localhost:3003/api/v1/auth/strava">Login with Strava</a>
+                <StravaButton />
               </div>
             </div>
           </div>

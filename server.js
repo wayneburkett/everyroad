@@ -30,8 +30,10 @@ if (NODE_ENV === 'development') {
 
 const auth = require('./routes/auth')
 const activities = require('./routes/activities')
+const user = require('./routes/user')
 
 app.use('/api/v1/auth', auth)
+app.use('/api/v1/user', user)
 app.use('/api/v1/activities', activities)
 
 app.get('/', function (req, res) {

@@ -1,15 +1,7 @@
-import React, { useContext, useEffect } from 'react'
-import { GlobalContext } from '../context/GlobalState'
+import React from 'react'
 import { StravaButton } from './StravaButton'
 
 export const Login = () => {
-  const { user, getUser } = useContext(GlobalContext)
-
-  useEffect(() => {
-    getUser()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <div class='bg-darken10 viewport-half'>
         <div class='flex-parent flex-parent--center-main pt36'>
@@ -17,9 +9,6 @@ export const Login = () => {
             <div class='px24 py24'>
               <div class='txt-l mb12'>Modal title</div>
               <div class='txt-m'>
-                {user && (
-                  <p>Hello, {user.name}</p>
-                )}
                 <StravaButton />
               </div>
             </div>
@@ -28,4 +17,3 @@ export const Login = () => {
       </div>
   )
 }
-

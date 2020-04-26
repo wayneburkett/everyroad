@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import ReactMapGL, { Source, Layer } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { ControlPanel } from './ControlPanel'
 import { Login } from './Login'
+import { GlobalContext } from '../context/GlobalState'
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibHdidXJrIiwiYSI6ImNqZ21mbm9pdDFiZXgzM21uaTVrNWpqNW4ifQ.d-nFW-zZRUKXM5E8rdgW3Q'
 
@@ -13,6 +14,25 @@ const lineLayer = {
     'line-opacity': 0.75,
     'line-width': 3
   }
+}
+
+const MapComponents = () => {
+  const { user, getUser } = useContext(GlobalContext)
+
+  useEffect(() => {
+    getUser()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (user ? <AuthorizedApp /> : <UnauthorizedApp />)
+}
+
+const AuthorizedApp = () => {
+  return <ControlPanel />
+}
+
+const UnauthorizedApp = () => {
+  return <Login />
 }
 
 export class Map extends React.Component {
@@ -41,13 +61,7 @@ export class Map extends React.Component {
           zoom={viewport.zoom}
           mapboxApiAccessToken={MAPBOX_TOKEN}
         >
-          {coords && (
-            <Source type='geojson' data={coords}>
-              <Layer {...lineLayer} />
-            </Source>
-          )}
-          <Login />
-          <ControlPanel items={streams} />
+          <MapComponents />
         </ReactMapGL>
     )
   }

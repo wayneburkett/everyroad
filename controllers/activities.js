@@ -36,11 +36,15 @@ module.exports.getActivityStream = (req, res) => {
 function get (req, res, path, params, transform) {
   makeRequest(req, path, params)
     .then(response => {
-      res.send((typeof transform === 'function')
-        ? transform(response.data)
-        : response.data)
+      return res.status(200).json({
+        success: true,
+        data: (typeof transform === 'function') ? transform(response.data) : response.data
+      })
     }).catch(error => {
-      res.send(error)
+      return res.status(500).json({
+        success: false,
+        error: error
+      })
     })
 }
 

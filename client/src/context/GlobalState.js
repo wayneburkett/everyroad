@@ -17,7 +17,7 @@ export const GlobalProvider = ({ children }) => {
 
   async function getUser() {
     try {
-      const res = await axios.get('/api/v1/user')
+      const res = await axios.get('/api/v1/auth')
 
       dispatch({
         type: 'GET_USER',

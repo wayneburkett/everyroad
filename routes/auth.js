@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const stravaStrategy = require('passport-strava-oauth2')
+const authenticate = require('../middleware/authenticate')
 const userController = require('../controllers/user')
 
 const { CLIENT_ID, CLIENT_SECRET, SCOPE } = process.env
@@ -38,6 +39,20 @@ passport.use(
       done(null, null)
     }
   }))
+
+router.get('/', authenticate, (req, res) => {
+  const user = req.user
+  if (user) {
+    return res.status(200).json({
+      success: true,
+      data: user
+    })
+  }
+  return res.status(500).json({
+    success: false,
+    error: 'User not found'
+  });
+})
 
 // forward to Strava for authentication
 router.get('/strava',

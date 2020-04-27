@@ -11,7 +11,8 @@ const initialState = {
   viewport: {
     center: [50.8437787, -22.2],
     zoom: 4
-  }
+  },
+  streams: []
 }
 
 export const GlobalContext = createContext(initialState)
@@ -51,6 +52,22 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
+  async function getStream (id) {
+    try {
+      const res = await axios.get(`/api/v1/activities/${id}/stream`)
+
+      dispatch({
+        type: 'GET_STREAM',
+        payload: res.data.data
+      })
+    } catch (err) {
+      dispatch({
+        type: 'API_ERROR',
+        payload: err.response.data.error
+      })
+    }
+  }
+
   function setViewport (viewport) {
     dispatch({
       type: 'SET_VIEWPORT',
@@ -67,7 +84,9 @@ export const GlobalProvider = ({ children }) => {
       getUser,
       getActivities,
       viewport: state.viewport,
-      setViewport
+      setViewport,
+      streams: state.streams,
+      getStream
     }}>
       {children}
     </GlobalContext.Provider>)

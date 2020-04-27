@@ -13,6 +13,12 @@ export default (state, action) => {
         loading: false,
         activities: action.payload
       }
+    case 'GET_STREAM':
+      return {
+        ...state,
+        loading: false,
+        streams: (state.streams || []).concat(action.payload)
+      }
     case 'SET_VIEWPORT':
       return {
         ...state,

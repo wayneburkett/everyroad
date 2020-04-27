@@ -47,15 +47,15 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
-  return (<GlobalContext.Provider value={{
-    user: state.user,
-    activities: state.activities,
-    error: state.error,
-    loading: state.loading,
-    getUser,
-    getActivities
-  }}
-  >
-    {children}
-  </GlobalContext.Provider>)
+  return (
+    <GlobalContext.Provider value={{
+      user: state.user,
+      activities: state.activities,
+      error: state.error,
+      loading: state.loading,
+      getUser,
+      getActivities
+    }}>
+      {children}
+    </GlobalContext.Provider>)
 }

@@ -9,4 +9,3 @@ export const StravaButton = () => {
     <a href={STRAVA_AUTH_URL}><img src={strava_button} alt={title} title={title} /></a>
   )
 }
-  

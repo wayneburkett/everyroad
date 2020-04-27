@@ -13,7 +13,7 @@ export const ActivitiesList = () => {
   return (
     <div>
       <h2>Activities</h2>
-      <ul className="activities-list">
+      <ul className='activities-list'>
         {activities && activities.map(activity => (<Activity key={activity.id} activity={activity} />))}
       </ul>
     </div>

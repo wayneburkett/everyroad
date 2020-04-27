@@ -51,7 +51,7 @@ router.get('/', authenticate, (req, res) => {
   return res.status(500).json({
     success: false,
     error: 'User not found'
-  });
+  })
 })
 
 // forward to Strava for authentication

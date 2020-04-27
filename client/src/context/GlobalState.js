@@ -7,7 +7,7 @@ const initialState = {
   activities: [],
   error: null,
   loading: true,
-  authorized: false,
+  authorized: false
 }
 
 export const GlobalContext = createContext(initialState)
@@ -15,7 +15,7 @@ export const GlobalContext = createContext(initialState)
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState)
 
-  async function getUser() {
+  async function getUser () {
     try {
       const res = await axios.get('/api/v1/auth')
 
@@ -31,7 +31,7 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
-  async function getActivities() {
+  async function getActivities () {
     try {
       const res = await axios.get('/api/v1/activities')
 
@@ -46,6 +46,7 @@ export const GlobalProvider = ({ children }) => {
       })
     }
   }
+
   return (<GlobalContext.Provider value={{
     user: state.user,
     activities: state.activities,
@@ -53,8 +54,8 @@ export const GlobalProvider = ({ children }) => {
     loading: state.loading,
     getUser,
     getActivities
-  }}>
+  }}
+  >
     {children}
   </GlobalContext.Provider>)
 }
-

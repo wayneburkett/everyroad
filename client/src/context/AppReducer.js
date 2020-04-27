@@ -13,9 +13,15 @@ export default (state, action) => {
         loading: false,
         activities: action.payload
       }
+    case 'SET_VIEWPORT':
+      return {
+        ...state,
+        viewport: action.payload
+      }
     case 'API_ERROR':
       return {
         ...state,
+        loading: false,
         error: action.payload
       }
     default:

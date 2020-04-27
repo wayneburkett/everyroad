@@ -7,7 +7,11 @@ const initialState = {
   activities: [],
   error: null,
   loading: true,
-  authorized: false
+  authorized: false,
+  viewport: {
+    center: [50.8437787, -22.2],
+    zoom: 4
+  }
 }
 
 export const GlobalContext = createContext(initialState)
@@ -47,6 +51,13 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
+  function setViewport (viewport) {
+    dispatch({
+      type: 'SET_VIEWPORT',
+      payload: viewport
+    })
+  }
+
   return (
     <GlobalContext.Provider value={{
       user: state.user,
@@ -54,7 +65,9 @@ export const GlobalProvider = ({ children }) => {
       error: state.error,
       loading: state.loading,
       getUser,
-      getActivities
+      getActivities,
+      viewport: state.viewport,
+      setViewport
     }}>
       {children}
     </GlobalContext.Provider>)

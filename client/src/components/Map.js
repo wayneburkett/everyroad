@@ -17,14 +17,14 @@ const lineLayer = {
 }
 
 const MapComponents = () => {
-  const { user, getUser } = useContext(GlobalContext)
+  const { user, getUser, loading } = useContext(GlobalContext)
 
   useEffect(() => {
     getUser()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (user ? <AuthorizedApp /> : <UnauthorizedApp />)
+  return (!loading && (user ? <AuthorizedApp /> : <UnauthorizedApp />))
 }
 
 const AuthorizedApp = () => {
@@ -35,34 +35,21 @@ const UnauthorizedApp = () => {
   return <Login />
 }
 
-export class Map extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      viewport: {
-        center: [50.8437787, -22.2],
-        zoom: 4
-      },
-      streams: [],
-      coords: null
-    }
-  }
+export const Map = () => {
+  const { viewport, setViewport } = useContext(GlobalContext)
 
-  render () {
-    const { viewport, streams, coords } = this.state
-    return (
-      <ReactMapGL
-        {...this.state.viewport}
-        width='100vw'
-        height='100vh'
-        mapStyle='mapbox://styles/mapbox/dark-v9'
-        onViewportChange={viewport => this.setState({ viewport })}
-        center={viewport.center}
-        zoom={viewport.zoom}
-        mapboxApiAccessToken={MAPBOX_TOKEN}
-      >
-        <MapComponents />
-      </ReactMapGL>
-    )
-  }
+  return (
+    <ReactMapGL
+      {...viewport}
+      width='100vw'
+      height='100vh'
+      mapStyle='mapbox://styles/mapbox/dark-v9'
+      onViewportChange={viewport => setViewport(viewport)}
+      center={viewport.center}
+      zoom={viewport.zoom}
+      mapboxApiAccessToken={MAPBOX_TOKEN}
+    >
+      <MapComponents />
+    </ReactMapGL>
+  )
 }

@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
-import { GlobalContext } from '../context/GlobalState'
+import React from 'react'
 
 export const Activity = ({ activity }) => {
   return (
     <li className='txt-s'>
-      <span>{`${activity.name}`}</span>
+      <span>{activity.name}</span>
     </li>
   )
 }

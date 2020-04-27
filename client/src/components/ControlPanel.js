@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react'
-import { GlobalContext } from '../context/GlobalState'
+import React from 'react'
 import { ActivitiesList } from './ActivitiesList'
 
 export const ControlPanel = () => {

@@ -51,18 +51,18 @@ export class Map extends React.Component {
   render () {
     const { viewport, streams, coords } = this.state
     return (
-        <ReactMapGL
-          {...this.state.viewport}
-          width='100vw'
-          height='100vh'
-          mapStyle='mapbox://styles/mapbox/dark-v9'
-          onViewportChange={viewport => this.setState({ viewport })}
-          center={viewport.center}
-          zoom={viewport.zoom}
-          mapboxApiAccessToken={MAPBOX_TOKEN}
-        >
-          <MapComponents />
-        </ReactMapGL>
+      <ReactMapGL
+        {...this.state.viewport}
+        width='100vw'
+        height='100vh'
+        mapStyle='mapbox://styles/mapbox/dark-v9'
+        onViewportChange={viewport => this.setState({ viewport })}
+        center={viewport.center}
+        zoom={viewport.zoom}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+      >
+        <MapComponents />
+      </ReactMapGL>
     )
   }
 }

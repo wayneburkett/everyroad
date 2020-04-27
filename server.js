@@ -10,6 +10,7 @@ connectDB()
 
 const PORT = process.env.PORT || 3003
 const NODE_ENV = process.env.NODE_ENV || 'development'
+const ONE_HOUR = 1000 * 60 * 60
 
 const app = module.exports = express()
 
@@ -17,10 +18,13 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 app.use(layouts)
 app.use(session({
-  secret: 'keyboard cat',
+  secret: 'keyboard cat5 cable guy richie',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: {
+    secure: false,
+    maxAge: ONE_HOUR * 24
+  }
 }))
 app.use(express.static(__dirname + '/public'))
 

@@ -45,8 +45,8 @@ export const Map = () => {
         >
           <Streams />
         </ReactMapGL>
+        <MapComponents />
       </div>
-      <MapComponents />
     </>
   )
 }

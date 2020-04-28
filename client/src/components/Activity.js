@@ -6,7 +6,7 @@ export const Activity = ({ activity }) => {
 
   return (
     <li>
-      <span className='activity'  onClick={() => getStream(activity.id)}>{activity.name}</span>
+      <span className='activity' onClick={() => getStream(activity.id)}>{activity.name}</span>
     </li>
   )
 }

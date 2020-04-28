@@ -9,14 +9,14 @@ import { GlobalContext } from '../context/GlobalState'
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibHdidXJrIiwiYSI6ImNqZ21mbm9pdDFiZXgzM21uaTVrNWpqNW4ifQ.d-nFW-zZRUKXM5E8rdgW3Q'
 
 const MapComponents = () => {
-  const { user, getUser, loading } = useContext(GlobalContext)
+  const { user, getUser, loading, authorized } = useContext(GlobalContext)
 
   useEffect(() => {
     getUser()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (!loading && (user ? <AuthorizedApp /> : <UnauthorizedApp />))
+  return (!loading && ((user && authorized) ? <AuthorizedApp /> : <UnauthorizedApp />))
 }
 
 const AuthorizedApp = () => {

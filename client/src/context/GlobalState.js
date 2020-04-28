@@ -77,6 +77,7 @@ export const GlobalProvider = ({ children }) => {
 
   return (
     <GlobalContext.Provider value={{
+      authorized: state.authorized,
       user: state.user,
       activities: state.activities,
       error: state.error,

@@ -28,6 +28,7 @@ export default (state, action) => {
       return {
         ...state,
         loading: false,
+        authorized: false,
         error: action.payload
       }
     default:

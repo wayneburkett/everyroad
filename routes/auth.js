@@ -50,7 +50,10 @@ router.get('/', authenticate, (req, res) => {
   }
   return res.status(500).json({
     success: false,
-    error: 'User not found'
+    error: {
+      code: 500,
+      message: 'Retrieved an empty user object'
+    }
   })
 })
 

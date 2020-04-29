@@ -6,6 +6,9 @@ module.exports = (req, res, next) => {
   }
   return res.status(401).json({
     success: false,
-    error: 'Unauthorized'
+    error: {
+      code: 401,
+      message: 'Unauthorized'
+    }
   })
 }

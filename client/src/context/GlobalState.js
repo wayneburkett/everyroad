@@ -29,10 +29,7 @@ export const GlobalProvider = ({ children }) => {
         payload: res.data.data
       })
     } catch (err) {
-      dispatch({
-        type: 'API_ERROR',
-        payload: err.response.data.error
-      })
+      dispatchError(err)
     }
   }
 
@@ -45,10 +42,7 @@ export const GlobalProvider = ({ children }) => {
         payload: res.data.data
       })
     } catch (err) {
-      dispatch({
-        type: 'API_ERROR',
-        payload: err.response.data.error
-      })
+      dispatchError(err)
     }
   }
 
@@ -61,10 +55,7 @@ export const GlobalProvider = ({ children }) => {
         payload: res.data.data
       })
     } catch (err) {
-      dispatch({
-        type: 'API_ERROR',
-        payload: err.response.data.error
-      })
+      dispatchError(err)
     }
   }
 
@@ -73,6 +64,22 @@ export const GlobalProvider = ({ children }) => {
       type: 'SET_VIEWPORT',
       payload: viewport
     })
+  }
+
+  function dispatchError(err) {
+    switch (err.response.status) {
+      case 401:
+        dispatch({
+          type: 'AUTH_ERROR',
+          payload: err.response.data.error
+        })
+        break;
+      default:
+        dispatch({
+          type: 'API_ERROR',
+          payload: err.response.data.error
+        })
+    }
   }
 
   return (

@@ -19,17 +19,23 @@ export default (state, action) => {
         loading: false,
         streams: (state.streams || []).concat(action.payload)
       }
-    case 'SET_VIEWPORT':
+    case 'API_ERROR':
       return {
         ...state,
-        viewport: action.payload
+        loading: false,
+        error: action.payload
       }
-    case 'API_ERROR':
+    case 'AUTH_ERROR':
       return {
         ...state,
         loading: false,
         authorized: false,
         error: action.payload
+      }
+    case 'SET_VIEWPORT':
+      return {
+        ...state,
+        viewport: action.payload
       }
     default:
       return state

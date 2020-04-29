@@ -66,14 +66,14 @@ export const GlobalProvider = ({ children }) => {
     })
   }
 
-  function dispatchError(err) {
+  function dispatchError (err) {
     switch (err.response.status) {
       case 401:
         dispatch({
           type: 'AUTH_ERROR',
           payload: err.response.data.error
         })
-        break;
+        break
       default:
         dispatch({
           type: 'API_ERROR',
@@ -95,7 +95,8 @@ export const GlobalProvider = ({ children }) => {
       setViewport,
       streams: state.streams,
       getStream
-    }}>
+    }}
+    >
       {children}
     </GlobalContext.Provider>)
 }

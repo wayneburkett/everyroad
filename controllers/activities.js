@@ -73,6 +73,7 @@ function swapCoords (coords) {
 function makeGeoJson (coords) {
   return {
     type: 'FeatureCollection',
+    bbox: bbox(coords),
     features: [{
       type: 'Feature',
       geometry: {
@@ -81,4 +82,15 @@ function makeGeoJson (coords) {
       }
     }]
   }
+}
+
+function bbox (coords) {
+  const result = [Infinity, Infinity, -Infinity, -Infinity]
+  coords.forEach((coord) => {
+    if (result[0] > coord[0]) { result[0] = coord[0]; }
+    if (result[1] > coord[1]) { result[1] = coord[1]; }
+    if (result[2] < coord[0]) { result[2] = coord[0]; }
+    if (result[3] < coord[1]) { result[3] = coord[1]; }
+  })
+  return result
 }

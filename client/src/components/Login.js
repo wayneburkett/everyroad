@@ -4,8 +4,7 @@ import { StravaButton } from './StravaButton'
 export const Login = () => {
   return (
     <div className='login-overlay'>
-              <StravaButton />
+      <StravaButton />
     </div>
   )
-
 }

@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 // this is just getting strava for now, but that might change, so we
-// should try to get it reasonably generic
+// should try to make it reasonably generic
 
 const BASE_API_URL = 'https://www.strava.com/api/v3/'
 
@@ -30,7 +30,13 @@ module.exports.getActivityStream = (req, res) => {
   get(req, res, 'activities/' + req.params.id + '/streams', {
     keys: 'latlng',
     key_by_type: true
-  }, streamToGeoJson)
+  }, (data) => {
+    return {
+      activityId: req.params.id,
+      retrievedAt: new Date(),
+      geojson: streamToGeoJson(data)
+    }
+  })
 }
 
 function get (req, res, path, params, transform) {
@@ -87,10 +93,10 @@ function makeGeoJson (coords) {
 function bbox (coords) {
   const result = [Infinity, Infinity, -Infinity, -Infinity]
   coords.forEach((coord) => {
-    if (result[0] > coord[0]) { result[0] = coord[0]; }
-    if (result[1] > coord[1]) { result[1] = coord[1]; }
-    if (result[2] < coord[0]) { result[2] = coord[0]; }
-    if (result[3] < coord[1]) { result[3] = coord[1]; }
+    if (result[0] > coord[0]) { result[0] = coord[0] }
+    if (result[1] > coord[1]) { result[1] = coord[1] }
+    if (result[2] < coord[0]) { result[2] = coord[0] }
+    if (result[3] < coord[1]) { result[3] = coord[1] }
   })
   return result
 }

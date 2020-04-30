@@ -59,3 +59,7 @@
 
 .activities-section .activities-list {
 }
+
+.activity.loaded {
+    font-weight: bold;
+}

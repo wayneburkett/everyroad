@@ -22,8 +22,8 @@ export const Streams = () => {
 
   useEffect(() => {
     const stream = streams[streams.length - 1]
-    if (stream && stream.bbox) {
-      const { longitude, latitude, zoom } = fitBounds(viewport, stream.bbox)
+    if (stream && stream.geojson && stream.geojson.bbox) {
+      const { longitude, latitude, zoom } = fitBounds(viewport, stream.geojson.bbox)
       setViewport({
         ...viewport,
         longitude,
@@ -35,9 +35,9 @@ export const Streams = () => {
 
   return (
     <>
-      {streams && streams.map((stream) => {
+      {streams && streams.map((stream, i) => {
         return (
-          <Source type='geojson' data={stream}>
+          <Source type='geojson' data={stream.geojson} key={i}>
             <Layer {...lineLayer} />
           </Source>
         )

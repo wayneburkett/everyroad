@@ -11,7 +11,7 @@ export const ActivitiesList = () => {
   }, [])
 
   return (
-    <div>
+    <div className='activities-section'>
       <h2>Activities</h2>
       <ul className='activities-list'>
         {activities && activities.map(activity => (<Activity key={activity.id} activity={activity} />))}

@@ -71,6 +71,10 @@
 .activities-section .activities-list {
 }
 
+.activities-section .activities-list:hover {
+    cursor: pointer;
+}
+
 .activity.loaded {
     font-weight: bold;
 }

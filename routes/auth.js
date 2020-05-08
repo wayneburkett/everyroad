@@ -5,6 +5,7 @@ const passport = require('passport')
 const stravaStrategy = require('passport-strava-oauth2')
 const authenticate = require('../middleware/authenticate')
 const userController = require('../controllers/user')
+const utils = require('../utils/responses')
 
 const { CLIENT_ID, CLIENT_SECRET, SCOPE } = process.env
 
@@ -42,19 +43,13 @@ passport.use(
 
 router.get('/', authenticate, (req, res) => {
   const user = req.user
+  const responder = utils.createResponder(res)
   if (user) {
-    return res.status(200).json({
-      success: true,
-      data: user
-    })
+    return responder.success(user)
   }
-  return res.status(500).json({
-    success: false,
-    error: {
-      code: 500,
-      message: 'Retrieved an empty user object'
-    }
-  })
+  // user should already have been authenticated, but the user object is empty, so
+  // something is wrong
+  return responder.failure(500, 'Retrieved an empty user object')
 })
 
 // forward to Strava for authentication

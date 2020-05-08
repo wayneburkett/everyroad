@@ -1,4 +1,5 @@
 const axios = require('axios')
+const utils = require('../utils/responses')
 
 // this is just getting strava for now, but that might change, so we
 // should try to make it reasonably generic
@@ -40,17 +41,14 @@ module.exports.getActivityStream = (req, res) => {
 }
 
 function get (req, res, path, params, transform) {
+  const responder = utils.createResponder(res)
   makeRequest(req, path, params)
     .then(response => {
-      return res.status(200).json({
-        success: true,
-        data: (typeof transform === 'function') ? transform(response.data) : response.data
-      })
+      return responder.success((typeof transform === 'function')
+        ? transform(response.data)
+        : response.data)
     }).catch(error => {
-      return res.status(500).json({
-        success: false,
-        error: error
-      })
+      return responder.error(error)
     })
 }
 

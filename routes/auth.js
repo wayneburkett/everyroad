@@ -5,7 +5,7 @@ const passport = require('passport')
 const stravaStrategy = require('passport-strava-oauth2')
 const authenticate = require('../middleware/authenticate')
 const userController = require('../controllers/user')
-const utils = require('../utils/responses')
+const { createResponder } = require('../utils/http')
 
 const { CLIENT_ID, CLIENT_SECRET, SCOPE } = process.env
 
@@ -43,7 +43,7 @@ passport.use(
 
 router.get('/', authenticate, (req, res) => {
   const user = req.user
-  const responder = utils.createResponder(res)
+  const responder = createResponder(res)
   if (user) {
     return responder.success(user)
   }

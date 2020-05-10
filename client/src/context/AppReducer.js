@@ -1,3 +1,10 @@
+/**
+ * A reducer
+ *
+ * @param {object} state the previous state
+ * @param {{type: string, payload: object}} action
+ * @returns {} the new state
+ */
 export default (state, action) => {
   switch (action.type) {
     case 'GET_USER':

@@ -1,3 +1,4 @@
+const path = require('path')
 const dotenv = require('dotenv')
 const express = require('express')
 const morgan = require('morgan')
@@ -14,7 +15,7 @@ const ONE_HOUR = 1000 * 60 * 60
 
 const app = module.exports = express()
 
-app.set('views', __dirname + '/views')
+app.set('views', path.join(__dirname, '/views'))
 app.set('view engine', 'ejs')
 app.use(layouts)
 app.use(session({
@@ -26,7 +27,7 @@ app.use(session({
     maxAge: ONE_HOUR * 24
   }
 }))
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(path.join(__dirname, '/public')))
 
 if (NODE_ENV === 'development') {
   app.use(morgan('combined'))
